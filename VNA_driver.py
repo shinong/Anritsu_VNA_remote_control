@@ -16,7 +16,7 @@ class VNA_Driver:
             print('selftest passed')
         else: 
             print('error')
-            exit()
+            #exit()
     
  #   def config_path(self,path):
  #       self.conf_path = path
@@ -61,13 +61,14 @@ if __name__ == '__main__':
     vna = VNA_Driver()
     vna.save_path()
 
-    for i in range(10):
-        vna.data_save('auto_save_%d.csv' %(i+1))
-        time.sleep(2)
+    
+    #for i in range(10):
+     #   vna.data_save('auto_save_%d.csv' %(i+1))
+      #  time.sleep(2)
 
-    exit()
+
     time.sleep(5)
-    vna.connect("10.20.175.173", 5001)
+    vna.connect("10.36.125.226", 5001)
     for i in range(10):
         vna.data_save('auto_save_%d.csv' %(i+1))
         time.sleep(2)
