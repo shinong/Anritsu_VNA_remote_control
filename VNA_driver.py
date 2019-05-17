@@ -1,5 +1,9 @@
 import socket
 
+
+vna = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+vna.connect(("10.20.175.173", 5001))
+
 def general_setup(setup_dir,data_dir):
     vna.send(str.encode("TST?\n"))
     reply = vna.recv(2056)
@@ -40,9 +44,10 @@ def data_save(dir,filename):
     vna.send(str.encode("MMEMory:STORe '%s\%s'" %(dir,filename)))
 
 
-exit()
 
 if __name__ == '__main__':
-    vna = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    vna.connect(("10.20.175.173", 5001))
-    print ('hello world')
+    
+    exit()
+
+    
+ 
