@@ -12,15 +12,15 @@ class VNA_Driver:
         self.sock.connect((host,port))
         self.sock.send(str.encode("TST?\n"))
         reply = self.sock.recv(2056)
-        print(reply[0])
-        #if (not reply[0]):
-        #    print('selftest passed')
-        #else: 
-        #    print('error')
-        #    #exit()
+        if (not int(reply)):
+            print('selftest passed')
+        else: 
+            print('error')
+            exit()
     
-    def config_file(self,path):
+    def config_file(self):
         self.conf_path = filedialog.askopenfilename()
+        print(self.conf_path)
 
     def save_path(self):
         self.s_path = filedialog.askdirectory()
@@ -47,13 +47,14 @@ class VNA_Driver:
 
         #self.send(str.encode("MMEMory:CATalog? '%s'" %(setup_dir)))
         #self.send(str.encode("MMEMory:CATalog? '%s'" %(data_dir)))
-
+    
+    #not working yet
     def setup_recall(self):
-        self.sock.send(str.encode("MMEMory:LOAD %s\n" %(self.conf_path)))
+        self.sock.send(str.encode("MMEM:LOAD '%s'\n" %(self.conf_path)))
 
-
+    #auto save works
     def data_save(self,filename):
-        self.sock.send(str.encode("MMEMory:STORe '%s\%s\n'" %(self.s_path,filename)))
+        self.sock.send(str.encode("MMEM:STOR '%s/%s'\n" %(self.s_path,filename)))
         #f = open('%s\%s'%(self.s_path,filename),'w')
 
 
@@ -61,21 +62,19 @@ class VNA_Driver:
 if __name__ == '__main__':
     import time 
     vna = VNA_Driver()
-    vna.connect("10.36.125.226", 5001)
-
-    exit()
+    vna.connect("10.0.0.11", 5001)
+    vna.config_file()
     vna.save_path()
+    time.sleep(2)
+    #vna.setup_recall()
 
     
-    #for i in range(10):
-     #   vna.data_save('auto_save_%d.csv' %(i+1))
-      #  time.sleep(2)
-
-
-    time.sleep(5)
     for i in range(10):
         vna.data_save('auto_save_%d.csv' %(i+1))
         time.sleep(2)
+
+    exit()
+
 
     
  
